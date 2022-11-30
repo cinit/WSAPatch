@@ -2,6 +2,8 @@
 
 This is a patch for WSA to enable WSA (Windows Subsystem for Android) to run on Windows 10.
 
+I have tested it with my Windows 10 22H2. Other versions like Windows 10 21H2 is not tested.
+
 Steps:
 
 1. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal (You need to "build" this yourself with your local WSL2).
