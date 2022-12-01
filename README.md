@@ -12,9 +12,14 @@ Steps:
    The icu.dll from Windows 10 will NOT work.
    (I have made a copy of these DLLs in the original.dll.win11.22h2 dir. They are digitally signed by Microsoft.)
 3. Build WsaPatch.dll with source code in this repo.
+   (Build with MSVC toolchain, not MinGW or something else.)
 4. Patch icu.dll: add WsaPatch.dll as an import DLL as icu.dll.
 5. Copy patched icu.dll and WsaPatch.dll to WsaClient dir.
 6. Patch AppxManifest.xml: Find TargetDeviceFamily node and change the MinVersion attribute to your Windows version.
 7. Patch AppxManifest.xml: Delete all nodes about "customInstall" extension in AppxManifest.xml.
 8. Run "Run.bat" to register your WSA appx.
 9. You should be able to run WSA now.
+
+If you don't want to build WsaPatch.dll and patch icu.dll yourself,
+you can download the prebuilt binaries from the [release page](https://github.com/cinit/WSAPatch/releases).
+(They are marked as "pre-release" because I don't know if they are stable enough.)
