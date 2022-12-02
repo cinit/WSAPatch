@@ -4,7 +4,7 @@ This is a patch for WSA to enable WSA (Windows Subsystem for Android) to run on 
 
 I have tested it with my Windows 10 22H2 x64 with WSA 2210.40000.7.0. Other versions like Windows 10 21H2 is not tested.
 
-Instructions:
+### Instructions
 
 1. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal
    (You need to "build" this yourself with your local WSL2).
@@ -54,10 +54,14 @@ If you don't want to build WsaPatch.dll and patch icu.dll yourself,
 you can download the prebuilt binaries from the [release page](https://github.com/cinit/WSAPatch/releases).
 (They are marked as "pre-release" because I don't know if they are stable enough.)
 
-Problems I met:
+### Problems I met
 
 1. When using WSA 2209.40000.26.0, I was able to run applications in WSA,
    but I was not able to connect to WSA ADB after enabling Developer Mode,
    since netstat shows that no process is listening on port 58526.
    After I upgraded to WSA 2210.40000.7.0, I was able to connect to WSA ADB.
 2. I was unable to drag the WSA settings window(although I can resize the WSA settings window).
+
+### Screenshot
+
+![screenshot](./pic/screenshot_20221202.png)
