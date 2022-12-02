@@ -1,6 +1,7 @@
 #include "WsaPatch.h"
 
 #include <string>
+#include <string_view>
 
 #include <windows.h>
 
@@ -12,7 +13,7 @@ static constexpr auto LOG_TAG = L"WsaPatch";
 
 namespace wsapatch {
 
-constexpr bool kDebug = true;
+bool kDebug = false;
 
 HINSTANCE gSelfInstance = nullptr;
 
@@ -137,12 +138,28 @@ int HookIATProcedure(HMODULE hModule, LPCSTR procName, FARPROC replacement) {
     return count;
 }
 
+void checkEnableDebugConsole() {
+    WCHAR exePath[1024] = {};
+    if (GetModuleFileNameW(nullptr, exePath, 1024) != 0) {
+        std::wstring path = exePath;
+        auto dirLen = path.find_last_of('\\');
+        if (dirLen == std::wstring::npos) {
+            dirLen = 0;
+        }
+        std::wstring enableDebugConsole = path.substr(0, dirLen) + L"\\EnableDebugConsole";
+        if (GetFileAttributesW(enableDebugConsole.c_str()) != INVALID_FILE_ATTRIBUTES) {
+            kDebug = true;
+        }
+    }
+}
+
 bool OnLoad(HINSTANCE hInstDLL) {
     gSelfInstance = hInstDLL;
     hNtdll = GetModuleHandleW(L"ntdll.dll");
     if (hNtdll == nullptr) {
         return false;
     }
+    checkEnableDebugConsole();
     hWsaClient = GetModuleHandleW(L"WsaClient.exe");
     if (kDebug) {
         if (AllocConsole()) {
