@@ -56,6 +56,23 @@
 
 编译好的 WsaPatch.dll 和修改过的 icu.dll 可以从 [release 页面](https://github.com/cinit/WSAPatch/releases) 下载.
 
+#### 关于 winhttp.dll
+
+- WsaClient.exe 会用 GetProcAddress 从 winhttp.dll 动态获取一些符号.
+- 有些符号是只有在 Windows 11 的 winhttp.dll 里才有，Windows 10 的 winhttp.dll 缺少这些符号.
+- 如果你在 WsaClient 文件夹建一个名为 `EnableDebugConsole` 的文件(没有扩展名)或者把 [WsaPatch.cpp](WsaPatch.cpp) 里的 `wsapatch::kDebug` 改成 true,
+  你能看到 GetProcAddress 有些结果是 NULL.
+- 如果你找一个 Windows 11 22H2 的 winhttp.dll 放到 WsaClient 文件夹里(或者 WSA 安装目录)，WsaClient.exe 就能找到这些符号了.
+- 但是不管 WsaClient.exe 能否找得到这些符号，它都能用.
+
+```text
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpRegisterProxyChangeNotification, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpUnregisterProxyChangeNotification, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpGetProxySettingsEx, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpGetProxySettingsResultEx, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpFreeProxySettingsEx, result=NULL
+```
+
 ### 可能遇到的问题
 
 1. 如果老版本的 WSA 2209.40000.26.0 开了开发者模式也连不上 ADB (端口没有进程监听), 更新到 WSA 2210.40000.7.0 就可以了.

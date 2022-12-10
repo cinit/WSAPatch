@@ -54,7 +54,23 @@ I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
 
 If you don't want to build WsaPatch.dll and patch icu.dll yourself,
 you can download the prebuilt binaries from the [release page](https://github.com/cinit/WSAPatch/releases).
-(They are marked as "pre-release" because I don't know if they are stable enough.)
+
+#### About winhttp.dll
+
+- WsaClient.exe does use GetProcAddress to get some functions from winhttp.dll.
+- Some functions exist in winhttp.dll of Windows 11 22H2, but not in Windows 10 22H2.
+- If you create a file `EnableDebugConsole` in WsaClient directory or set `wsapatch::kDebug` in [WsaPatch.cpp](WsaPatch.cpp) to true,
+  you will see the following message from log console.
+- If you copy a winhttp.dll from Windows 11 22H2 to WsaClient directory, WsaClient.exe will be able to find these functions.
+- WSA will still run even if you don't copy a winhttp.dll with these symbols.
+
+```text
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpRegisterProxyChangeNotification, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpUnregisterProxyChangeNotification, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpGetProxySettingsEx, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpGetProxySettingsResultEx, result=NULL
+12-10 16:16:29.474 W WsaPatch: -GetProcAddress: hModule=C:\WINDOWS\SYSTEM32\WINHTTP.dll(00007FFC64780000), lpProcName=WinHttpFreeProxySettingsEx, result=NULL
+```
 
 ### Problems I met
 
