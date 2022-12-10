@@ -1,5 +1,7 @@
 # WSA patch for Windows 10
 
+[中文版本](./README_zhs.md)
+
 This is a patch for WSA to enable WSA (Windows Subsystem for Android) to run on Windows 10.
 
 I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
@@ -61,7 +63,8 @@ you can download the prebuilt binaries from the [release page](https://github.co
    since netstat shows that no process is listening on port 58526.
    After I upgraded to WSA 2210.40000.7.0, I was able to connect to WSA ADB.
 2. The WSA settings window was not draggable.
-   A temporary solution to move WSA settings window is to press Alt+Space, then click "Move" in the context menu. [#1](https://github.com/cinit/WSAPatch/issues/1)
+   A temporary solution to move WSA settings window is to press Alt+Space, then click "Move" in the context
+   menu. [#1](https://github.com/cinit/WSAPatch/issues/1)
 3. If your WSA crashes(or suddenly disappears) when starting up, try to upgrade your Windows to Windows 10 22H2 10.0.19045.2311.
    (Someone has reported that WSA failed to start on 22H2 19045.2251, but worked after upgrading to 19045.2311.)
 
