@@ -8,47 +8,44 @@ I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
 
 ### Instructions
 
-1. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal
+1. Make sure your Windows version is at least Windows 10 22H2 10.0.19045.2311.
+   - You can check your Windows version with command `winver`.
+   - If your Windows version is lower than 10.0.19045.2311, please install update KB5020030.
+2. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal
    (You need to "build" this yourself with your local WSL2).
-2. Get "icu.dll" from Windows 11 22H2. Note that you MUST use icu.dll from Windows 11.
+3. Get "icu.dll" from Windows 11 22H2. Note that you MUST use icu.dll from Windows 11.
    The icu.dll from Windows 10 will NOT work.
    (I have made a copy of these DLLs in the original.dll.win11.22h2 dir. They are digitally signed by Microsoft.)
-3. Build WsaPatch.dll with source code in this repo.
+4. Build WsaPatch.dll with source code in this repo.
    (Build with MSVC toolchain, not MinGW or something else.)
-4. Patch icu.dll: add WsaPatch.dll as an import DLL as icu.dll.
-5. Copy patched icu.dll and WsaPatch.dll to WsaClient dir.
-6. Patch AppxManifest.xml: Find TargetDeviceFamily node and change the MinVersion attribute to your Windows version.
-   <details>
+5. Patch icu.dll: add WsaPatch.dll as an import DLL as icu.dll.
+6. Copy patched icu.dll and WsaPatch.dll to WsaClient dir.
+7. Patch AppxManifest.xml.
+   1. Find TargetDeviceFamily node in AppxManifest.xml.
+      ```xml
+      <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.120" MaxVersionTested="10.0.22000.120"/>
+      ```
 
-   Find the following line in AppxManifest.xml.
-   ```xml
-   <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.120" MaxVersionTested="10.0.22000.120"/>
-   ```
+      Change the `MinVersion` from `10.0.22000.120` to `10.0.19045.2311`.
 
-   Change the `MinVersion` from `10.0.22000.120` to your Windows version, like `10.0.19045.2311`.
-   </details>
-7. Patch AppxManifest.xml: Delete all nodes about "customInstall" extension in AppxManifest.xml.
-   <details>
-   Delete the following content from AppxManifest.xml.
+   2. Delete all nodes about "customInstall" extension (see below) in AppxManifest.xml.
+      ```xml
+      <rescap:Capability Name="customInstallActions"/>
+      ```
 
-   ```xml
-   <rescap:Capability Name="customInstallActions"/>
-   ```
+      ```xml
+      <desktop6:Extension Category="windows.customInstall">
+          <desktop6:CustomInstall Folder="CustomInstall" desktop8:RunAsUser="true">
+              <desktop6:RepairActions>
+                  <desktop6:RepairAction File="WsaSetup.exe" Name="Repair" Arguments="repair"/>
+              </desktop6:RepairActions>
+              <desktop6:UninstallActions>
+                  <desktop6:UninstallAction File="WsaSetup.exe" Name="Uninstall" Arguments="uninstall"/>
+              </desktop6:UninstallActions>
+          </desktop6:CustomInstall>
+      </desktop6:Extension>
+      ```
 
-   ```xml
-   <desktop6:Extension Category="windows.customInstall">
-       <desktop6:CustomInstall Folder="CustomInstall" desktop8:RunAsUser="true">
-           <desktop6:RepairActions>
-               <desktop6:RepairAction File="WsaSetup.exe" Name="Repair" Arguments="repair"/>
-           </desktop6:RepairActions>
-           <desktop6:UninstallActions>
-               <desktop6:UninstallAction File="WsaSetup.exe" Name="Uninstall" Arguments="uninstall"/>
-           </desktop6:UninstallActions>
-       </desktop6:CustomInstall>
-   </desktop6:Extension>
-   ```
-
-   </details>
 8. Run "Run.bat" to register your WSA appx.
 9. You should be able to run WSA now.
 
