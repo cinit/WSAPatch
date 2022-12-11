@@ -9,8 +9,8 @@ I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
 ### Instructions
 
 1. Make sure your Windows version is at least Windows 10 22H2 10.0.19045.2311.
-   - You can check your Windows version with command `winver`.
-   - If your Windows version is lower than 10.0.19045.2311, please install update KB5020030.
+    - You can check your Windows version with command `winver`.
+    - If your Windows version is lower than 10.0.19045.2311, please install update KB5020030.
 2. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal
    (You need to "build" this yourself with your local WSL2).
 3. Get "icu.dll" from Windows 11 22H2. Note that you MUST use icu.dll from Windows 11.
@@ -21,30 +21,30 @@ I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
 5. Patch icu.dll: add WsaPatch.dll as an import DLL as icu.dll.
 6. Copy patched icu.dll and WsaPatch.dll to WsaClient dir.
 7. Patch AppxManifest.xml.
-   1. Find TargetDeviceFamily node in AppxManifest.xml.
-      ```xml
-      <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.120" MaxVersionTested="10.0.22000.120"/>
-      ```
+    1. Find TargetDeviceFamily node in AppxManifest.xml.
+       ```xml
+       <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.120" MaxVersionTested="10.0.22000.120"/>
+       ```
 
-      Change the `MinVersion` from `10.0.22000.120` to `10.0.19045.2311`.
+       Change the `MinVersion` from `10.0.22000.120` to `10.0.19045.2311`.
 
-   2. Delete all nodes about "customInstall" extension (see below) in AppxManifest.xml.
-      ```xml
-      <rescap:Capability Name="customInstallActions"/>
-      ```
+    2. Delete all nodes about "customInstall" extension (see below) in AppxManifest.xml.
+       ```xml
+       <rescap:Capability Name="customInstallActions"/>
+       ```
 
-      ```xml
-      <desktop6:Extension Category="windows.customInstall">
-          <desktop6:CustomInstall Folder="CustomInstall" desktop8:RunAsUser="true">
-              <desktop6:RepairActions>
-                  <desktop6:RepairAction File="WsaSetup.exe" Name="Repair" Arguments="repair"/>
-              </desktop6:RepairActions>
-              <desktop6:UninstallActions>
-                  <desktop6:UninstallAction File="WsaSetup.exe" Name="Uninstall" Arguments="uninstall"/>
-              </desktop6:UninstallActions>
-          </desktop6:CustomInstall>
-      </desktop6:Extension>
-      ```
+       ```xml
+       <desktop6:Extension Category="windows.customInstall">
+           <desktop6:CustomInstall Folder="CustomInstall" desktop8:RunAsUser="true">
+               <desktop6:RepairActions>
+                   <desktop6:RepairAction File="WsaSetup.exe" Name="Repair" Arguments="repair"/>
+               </desktop6:RepairActions>
+               <desktop6:UninstallActions>
+                   <desktop6:UninstallAction File="WsaSetup.exe" Name="Uninstall" Arguments="uninstall"/>
+               </desktop6:UninstallActions>
+           </desktop6:CustomInstall>
+       </desktop6:Extension>
+       ```
 
 8. Run "Run.bat" to register your WSA appx.
 9. You should be able to run WSA now.
@@ -75,9 +75,10 @@ you can download the prebuilt binaries from the [release page](https://github.co
    but I was not able to connect to WSA ADB after enabling Developer Mode,
    since netstat shows that no process is listening on port 58526.
    After I upgraded to WSA 2210.40000.7.0, I was able to connect to WSA ADB.
-2. The WSA settings window was not draggable.
-   A temporary solution to move WSA settings window is to press Alt+Space, then click "Move" in the context
-   menu. [#1](https://github.com/cinit/WSAPatch/issues/1)
+2. The WSA settings window does not hava a draggable title,
+   but you can move the WSA window if you hold the cursor left near the "minimize" button,
+   or press Alt+Space, then click "Move" in the context
+   menu. [#1](https://github.com/cinit/WSAPatch/issues/1) [#2](https://github.com/cinit/WSAPatch/issues/2)
 3. If your WSA crashes(or suddenly disappears) when starting up, try to upgrade your Windows to Windows 10 22H2 10.0.19045.2311.
    (Someone has reported that WSA failed to start on 22H2 19045.2251, but worked after upgrading to 19045.2311.)
 

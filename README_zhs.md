@@ -74,7 +74,8 @@
 ### 可能遇到的问题
 
 1. 如果老版本的 WSA 2209.40000.26.0 开了开发者模式也连不上 ADB (端口没有进程监听), 更新到 WSA 2210.40000.7.0 就可以了.
-2. WSA 设置窗口无法移动. 但可以通过按快捷键 Alt+Space 然后点弹出菜单里的 "移动". [#1](https://github.com/cinit/WSAPatch/issues/1)
+2. 移动 WSA 的设置窗口可以通过按住窗口最小化按钮左边的一小块空白区域然后拖动, 也可以通过按快捷键 Alt+Space 然后点弹出菜单里的 "移动".
+   [#1](https://github.com/cinit/WSAPatch/issues/1) [#2](https://github.com/cinit/WSAPatch/issues/2)
 3. 如果你的 WSA 在启动时闪退且没有任何提示，请将 Windows 10 更新到 22H2 10.0.19045.2311 或更高版本.
    (有人反应过 WSA 在 22H2 19045.2251 闪退, 但更新到 22H2 19045.2311 就能用了).
 
