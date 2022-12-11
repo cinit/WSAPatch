@@ -81,6 +81,8 @@ you can download the prebuilt binaries from the [release page](https://github.co
 3. If your WSA crashes(or suddenly disappears) when starting up, try to upgrade your Windows to Windows 10 22H2 10.0.19045.2311.
    (Someone has reported that WSA failed to start on 22H2 19045.2251, but worked after upgrading to 19045.2311.)
 
+If you encounter any problems or have any suggestions, please open an issue or pull request.
+
 ### Screenshot
 
 ![screenshot](./pic/screenshot_20221202.png)
