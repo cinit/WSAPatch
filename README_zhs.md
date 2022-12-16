@@ -4,13 +4,13 @@
 
 这是一个可以让 Windows 10 运行 WSA (Windows Subsystem for Android) 的补丁及其使用方法。
 
-本人使用的系统版本为 Windows 10 22H2 10.0.19045.2311 x64, 使用的 WSA 版本为 2210.40000.7.0.
+本人测试过 Windows 10 22H2 10.0.19045.2311 x64 + WSA 2210.40000.7.0 以及 10.0.19045.2364 + 2211.40000.10.0.
 
 ### 操作步骤
 
 1. 将你的系统更新到 Windows 10 22H2 10.0.19045.2311 或更高版本.
     - 你可以通过 `winver` 命令查看您当前的 Windows 版本.
-    - 如果您的 Windows 版本低于 10.0.19045.2311, 请安装 KB5020030 累积更新.
+    - 如果您的 Windows 版本低于 10.0.19045.2311, 请将您的系统更新到 10.0.19045.2311 或以上.
 2. 安装 WSL2 (我用的 Ubuntu 22.04 LTS, 当然你也可以选择你喜欢的发行版，下一步要用到).
 3. 按照 https://github.com/LSPosed/MagiskOnWSALocal 的步骤，得到集成了 Magisk 的 WSA AppX 包.
     - 注：你需要在你的 WSL2 里进行操作，WSA 版本建议选 Insider Fast/Dev Channel.

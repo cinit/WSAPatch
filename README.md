@@ -4,13 +4,13 @@
 
 This is a patch for WSA to enable WSA (Windows Subsystem for Android) to run on Windows 10.
 
-I have tested on Windows 10 22H2 10.0.19045.2311 x64 with WSA 2210.40000.7.0.
+I have tested WSA 2210.40000.7.0 on Windows 10 22H2 10.0.19045.2311 and 2211.40000.10.0 on 10.0.19045.2364.
 
 ### Instructions
 
 1. Make sure your Windows version is at least Windows 10 22H2 10.0.19045.2311.
     - You can check your Windows version with command `winver`.
-    - If your Windows version is lower than 10.0.19045.2311, please install update KB5020030.
+    - If your Windows version is lower than 10.0.19045.2311, please update your Windows to at least 10.0.19045.2311.
 2. Get WSA appx zip. You can do this by following instructions in https://github.com/LSPosed/MagiskOnWSALocal
    (You need to "build" this yourself with your local WSL2).
 3. Get "icu.dll" from Windows 11 22H2. Note that you MUST use icu.dll from Windows 11.
