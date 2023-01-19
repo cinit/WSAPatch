@@ -24,6 +24,8 @@ HMODULE hNtdll = nullptr;
 HMODULE hWsaClient = nullptr;
 
 RTL_OSVERSIONINFOEXW gOsVersionInfo = {0};
+bool gIsPatchVersionNumber = false;
+bool gIsPatchProductType = false;
 
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 #define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
@@ -50,12 +52,17 @@ void defaultLogHandler(Log::Level level, const WCHAR *tag, const WCHAR *msg) {
 using FuncRtlGetVersion = NTSYSAPI NTSTATUS(*)(PRTL_OSVERSIONINFOW lpVersionInformation);
 
 NTSTATUS WINAPI FakeRtlGetVersion(PRTL_OSVERSIONINFOW lpVersionInformation) {
-    // 10.0.22000.1
+    // The minimal version is 10.0.22000.120 VER_NT_WORKSTATION
     LOGD(L"-FakeRtlGetVersion");
     DWORD size = lpVersionInformation->dwOSVersionInfoSize;
     memcpy(lpVersionInformation, &gOsVersionInfo, size);
     lpVersionInformation->dwOSVersionInfoSize = size;
-    lpVersionInformation->dwBuildNumber = 22000;
+    if (gIsPatchVersionNumber) {
+        lpVersionInformation->dwBuildNumber = 22000;
+    }
+    if (gIsPatchProductType && size >= sizeof(OSVERSIONINFOEXW)) {
+        ((PRTL_OSVERSIONINFOEXW) lpVersionInformation)->wProductType = VER_NT_WORKSTATION;
+    }
     return STATUS_SUCCESS;
 }
 
@@ -184,7 +191,7 @@ bool OnLoad(HINSTANCE hInstDLL) {
         }
         if (wcsstr(filename, L"\\wsaclinent.exe") == nullptr) {
             WCHAR buf[1024] = {};
-            StringCbPrintfW(buf, 1024, L"GetModuleHandleW(L\"WsaClient.dll\") is NULL.\nIs wsapatch.dll loaded into wrong process?\n%s", filename);
+            StringCbPrintfW(buf, 1024, L"GetModuleHandleW(L\"WsaClient.exe\") is NULL.\nIs wsapatch.dll loaded into wrong process?\n%s", filename);
             MessageBoxW(nullptr, buf, L"wsapatch.dll", MB_OK | MB_ICONERROR);
             return false;
         }
@@ -205,10 +212,14 @@ bool OnLoad(HINSTANCE hInstDLL) {
     }
     LOGD(L"RtlGetVersion: dwMajorVersion=%d, dwMinorVersion=%d, dwBuildNumber=%d, dwPlatformId=%d",
          gOsVersionInfo.dwMajorVersion, gOsVersionInfo.dwMinorVersion, gOsVersionInfo.dwBuildNumber, gOsVersionInfo.dwPlatformId);
-    if (gOsVersionInfo.dwMajorVersion >= 10 && gOsVersionInfo.dwMinorVersion >= 0 && gOsVersionInfo.dwBuildNumber >= 22000) {
-        LOGW(L"Windows 11 detected, no need to patch");
+    bool isWin11 = gOsVersionInfo.dwMajorVersion >= 10 && gOsVersionInfo.dwMinorVersion >= 0 && gOsVersionInfo.dwBuildNumber >= 22000;
+    gIsPatchVersionNumber = !isWin11;
+    gIsPatchProductType = (gOsVersionInfo.wProductType != VER_NT_WORKSTATION);
+    if (!gIsPatchVersionNumber && !gIsPatchProductType) {
+        LOGW(L"Windows 11 workstation detected, no need to patch");
         return true;
     }
+    LOGD(L"Need to patch, gIsPatchVersionNumber=%d, gIsPatchProductType=%d", gIsPatchVersionNumber, gIsPatchProductType);
     int count = HookIATProcedure(hWsaClient, "GetProcAddress", reinterpret_cast<FARPROC>(&BadGetProcAddress));
     if (count == 0) {
         LOGE(L"HookIATProcedure failed, count=%d", count);
