@@ -198,7 +198,7 @@ bool OnLoad(HINSTANCE hInstDLL) {
         return false;
     }
     LOGD(L"ntdll.dll = %p", hNtdll);
-    LOGD(L"WsaClient.dll = %p", hWsaClient);
+    LOGD(L"WsaClient.exe = %p", hWsaClient);
     FuncRtlGetVersion funcRtlGetVersion = reinterpret_cast<FuncRtlGetVersion>(GetProcAddress(hNtdll, "RtlGetVersion"));
     if (funcRtlGetVersion == nullptr) {
         LOGE(L"GetProcAddress(NTDLL.DLL, \"RtlGetVersion\") failed, GetLastError=%d", GetLastError());
