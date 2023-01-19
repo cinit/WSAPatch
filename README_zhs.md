@@ -54,6 +54,21 @@
 
 编译好的 WsaPatch.dll 和修改过的 icu.dll 可以从 [release 页面](https://github.com/cinit/WSAPatch/releases) 下载.
 
+### 注意事项
+
+1. WSA 只能安装在 NTFS 分区 (请勿安装在 exFAT 分区).
+2. 在 `Add-AppxPackage -Register .\AppxManifest.xml` 完成 WSA 的安装后, 你原先解压 WSA 的文件夹不可以删除.
+   因为 `Add-AppxPackage -Register .\AppxManifest.xml` 的作用是注册 appx 应用包，它只登记注册，不会复制文件.
+   参考 https://learn.microsoft.com/en-us/powershell/module/appx/add-appxpackage?view=windowsserver2022-ps
+3. 在解压 WSA 后第一次启动之前, 你需要注册 WSA appx 包 (上文第 9 步).
+   对于 [MagiskOnWSALocal](https://github.com/LSPosed/MagiskOnWSALocal) 用户, 你只需要运行解压目录下的 `Run.bat` 即可.
+   如果报错失败, 你可以进行以下操作进行错误诊断(需要管理员权限).
+    1. 以管理员身份打开 PowerShell, 切换工作目录到 WSA 的解压目录.
+    2. 在 PowerShell 中运行 `Add-AppxPackage -ForceApplicationShutdown -ForceUpdateFromAnyVersion -Register .\AppxManifest.xml`.
+       该命令应该会失败并提供一个这次错误的 ActivityID (是个 UUID).
+    3. 在 PowerShell 中运行 `Get-AppPackageLog -ActivityID <UUID>` 获取刚才的错误的日志.
+    4. 根据日志的内容进行修复.
+
 #### 关于 winhttp.dll
 
 - WsaClient.exe 会用 GetProcAddress 从 winhttp.dll 动态获取一些符号.

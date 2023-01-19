@@ -52,6 +52,23 @@ I have tested WSA 2210.40000.7.0 on Windows 10 22H2 10.0.19045.2311 and 2211.400
 If you don't want to build WsaPatch.dll and patch icu.dll yourself,
 you can download the prebuilt binaries from the [release page](https://github.com/cinit/WSAPatch/releases).
 
+### Notice
+
+1. You can only install WSA on a NTFS partition, not on an exFAT partition.
+2. You can NOT delete the WSA installation folder.
+   What `Add-AppxPackage -Register .\AppxManifest.xml` does is to register an appx package with some existing unpackaged files,
+   so you need to keep them as long as you want to use WSA.
+   Check https://learn.microsoft.com/en-us/powershell/module/appx/add-appxpackage?view=windowsserver2022-ps for more details.
+3. You need to register your WSA appx package before you can run WSA (the 8th step in the instructions).
+   For [MagiskOnWSALocal](https://github.com/LSPosed/MagiskOnWSALocal) users, you need to run `Run.bat` in the extracted dir.
+   If the script fails, you can take the following steps for diagnosis (admin privilege required):
+    1. Open a PowerShell window and change working directory to your WSA directory.
+    2. Run `Add-AppxPackage -ForceApplicationShutdown -ForceUpdateFromAnyVersion -Register .\AppxManifest.xml` in PowerShell.
+       This should fail with an ActivityID, which is a UUID required for the next step.
+    3. Run `Get-AppPackageLog -ActivityID <UUID>` in PowerShell.
+       This should print the log of the failed operation.
+    4. Check the log for the reason of failure and fix it.
+
 #### About winhttp.dll
 
 - WsaClient.exe does use GetProcAddress to get some functions from winhttp.dll.
