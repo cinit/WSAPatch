@@ -1,0 +1,36 @@
+name: Build WsaPatch.dll
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: .
+  BUILD_CONFIGURATION: Release
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure
+        run: |
+          cmake -G "Visual Studio 17 2022" -A x64 -B build
+
+      - name: Build Release
+        run: cmake --build build --config Release --verbose
+
+      - name: Upload WsaPatch.dll
+        uses: actions/upload-artifact@v3
+        with:
+          name: WsaPatch-build
+          path: .\build
