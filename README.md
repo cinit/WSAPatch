@@ -36,7 +36,7 @@ In theory, this should work with any version of Windows 10 version 2004 (20H1) a
        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.120" MaxVersionTested="10.0.22000.120"/>
        ```
 
-       Change the `MinVersion` from `10.0.22000.120` to `10.0.19045.2311`.
+       Change the `MinVersion` from `10.0.22000.120` to `10.0` plus the OS Build number that appears in `winver`. For example, if `winver` shows `Version 21H2 (OS Build 19044.2728)`, you'd change it to `10.0.19044.2728`.
 
     2. Delete all nodes about "customInstall" extension (see below) in AppxManifest.xml.
        ```xml
