@@ -4,7 +4,17 @@
 
 This is a patch for WSA to enable WSA (Windows Subsystem for Android) to run on Windows 10.
 
-I have tested WSA 2210.40000.7.0 on Windows 10 22H2 10.0.19045.2311 and 2211.40000.10.0 on 10.0.19045.2364.
+### Compatibility
+
+Below is a list of versions of WSA and versions of Windows 10 that have been tested together.
+
+| WSA version     | Windows version        |
+|-----------------|------------------------|
+| 2210.40000.7.0  | 10.0.19045.2311 (22H2) |
+| 2211.40000.10.0 | 10.0.19045.2364 (22H2) |
+| 2302.40000.9.0  | 10.0.19044.2728 (21H2) |
+
+In theory, this should work with any version of Windows 10 version 2004 (20H1) and above. This is because every update since then has been very minor, and the build number even still shows as 19041 (20H1's build number) in some places, such as the desktop build number watermark if that is enabled.
 
 ### Instructions
 
