@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Theme Colors -->
+    <color name="md_theme_light_primary">#006493</color> <!-- Simple Blue -->
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#CAE6FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001E2F</color>
+    <color name="md_theme_light_secondary">#50606E</color> <!-- Simple Gray-Blue -->
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#D3E5F5</color>
+    <color name="md_theme_light_onSecondaryContainer">#0C1D29</color>
+    <color name="md_theme_light_error">#BA1A1A</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#FFDAD6</color>
+    <color name="md_theme_light_onErrorContainer">#410002</color>
+    <color name="md_theme_light_background">#FCFCFF</color> <!-- Very Light Gray / Off-white -->
+    <color name="md_theme_light_onBackground">#1A1C1E</color>
+    <color name="md_theme_light_surface">#FCFCFF</color> <!-- Same as background for simple theme -->
+    <color name="md_theme_light_onSurface">#1A1C1E</color>
+    <color name="md_theme_light_surfaceVariant">#DEE3EA</color> <!-- Light Gray -->
+    <color name="md_theme_light_onSurfaceVariant">#41474D</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="md_theme_dark_primary">#8DCDFF</color> <!-- Light Blue for Dark Theme -->
+    <color name="md_theme_dark_onPrimary">#00344E</color>
+    <color name="md_theme_dark_primaryContainer">#004B6F</color>
+    <color name="md_theme_dark_onPrimaryContainer">#CAE6FF</color>
+    <color name="md_theme_dark_secondary">#B7C9D9</color> <!-- Light Gray-Blue for Dark Theme -->
+    <color name="md_theme_dark_onSecondary">#22323F</color>
+    <color name="md_theme_dark_secondaryContainer">#384956</color>
+    <color name="md_theme_dark_onSecondaryContainer">#D3E5F5</color>
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_dark_background">#1A1C1E</color> <!-- Dark Gray -->
+    <color name="md_theme_dark_onBackground">#E2E2E5</color>
+    <color name="md_theme_dark_surface">#1A1C1E</color> <!-- Same as background for simple theme -->
+    <color name="md_theme_dark_onSurface">#E2E2E5</color>
+    <color name="md_theme_dark_surfaceVariant">#41474D</color> <!-- Medium Gray -->
+    <color name="md_theme_dark_onSurfaceVariant">#C1C7CE</color>
+
+    <!-- Common Colors (optional, can be replaced by theme attributes) -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

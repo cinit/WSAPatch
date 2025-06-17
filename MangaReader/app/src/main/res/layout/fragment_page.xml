@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.reader.PageFragment">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoview_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:contentDescription="Manga Page" />
+
+    <!-- Optional: Add a TextView for page number overlay if not handled by ReaderActivity -->
+
+</FrameLayout>

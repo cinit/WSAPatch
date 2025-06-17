@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_library"
+        android:icon="@android:drawable/ic_dialog_dialer" <!-- Placeholder icon -->
+        android:title="Library" />
+    <item
+        android:id="@+id/navigation_browse"
+        android:icon="@android:drawable/ic_menu_search" <!-- Placeholder icon -->
+        android:title="Browse" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@android:drawable/ic_menu_manage" <!-- Placeholder icon -->
+        android:title="Settings" />
+    <item
+        android:id="@+id/navigation_downloads"
+        android:icon="@android:drawable/stat_sys_download_done" <!-- Placeholder icon -->
+        android:title="Downloads" />
+    <item
+        android:id="@+id/navigation_local_browse"
+        android:icon="@android:drawable/ic_menu_agenda" <!-- Placeholder icon -->
+        android:title="Local" />
+</menu>

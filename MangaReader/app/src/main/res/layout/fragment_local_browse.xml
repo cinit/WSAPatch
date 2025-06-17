@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.local.LocalBrowseFragment">
+
+    <Button
+        android:id="@+id/button_select_directory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Manga Directory" />
+
+    <!-- Optional: Add an "Up" button here if desired for simple navigation -->
+    <!-- <Button android:id="@+id/button_up_directory" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Up"/> -->
+
+
+    <TextView
+        android:id="@+id/text_view_selected_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="No directory selected."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_local_files"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        tools:listitem="@android:layout/simple_list_item_1"/>
+
+</LinearLayout>
